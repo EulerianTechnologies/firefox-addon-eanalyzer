@@ -1,0 +1,33 @@
+body,
+html {
+	font-family: 'Source Sans Pro', sans-serif;
+	min-height:450px;
+
+}
+html{overflow-y:scroll}
+
+.success-row {
+	background: #f0f9eb;
+}
+
+.el-button-group>.el-button {
+	padding-right: 5px;
+}
+
+.ea-params-grid {
+	display: grid;
+	grid-template-columns: minmax(50px, 150px) auto;
+	grid-gap : 5px;
+	/*font-size: 1.2em;*/
+	color : #96BBE1;
+}
+.mark .el-badge__content {
+	background-color: #409EFF;
+}
+
+.ea-header {
+	display: grid;
+	grid-template-columns: 1fr 2fr 3fr;
+}
+
+pre code {font-size:10px;max-height:350px;}

@@ -1,0 +1,396 @@
+{
+  "extensionName": {
+    "message": "EA analyzer",
+    "description": "Name of the extension - please do not move."
+  },
+  "extensionDescription": {
+    "message": "Captures EA requests (col1/collector) and their responses. Grind all of that and extract some knowledge about in real time.",
+    "description": "Description of the extension."
+  },
+
+  "value-boolean-true": {
+    "message": "yes",
+    "description": "value to use for true"
+  },
+  "value-boolean-false": {
+    "message": "false",
+    "description": "value to use for false"
+  },
+  "value-empty": {
+    "message": "empty",
+    "description": "label for empty"
+  },
+  "value-validate": {
+    "message": "Confirm",
+    "description": "label for confirm"
+  },
+  "value-remove": {
+    "message": "Delete",
+    "description": "label for delete"
+  },
+  "value-cancel": {
+    "message": "Cancel",
+    "description": "label for cancel"
+  },
+
+  "tagtype-generic": {
+    "message": "Générique",
+    "description": "label for tagtype generic"
+  },
+  "tagtype-product": {
+    "message": "Produit",
+    "description": "label for tagtype product"
+  },
+  "tagtype-search": {
+    "message": "Search",
+    "description": "label for tagtype search"
+  },
+  "tagtype-lead": {
+    "message": "Devis",
+    "description": "label for tagtype lead"
+  },
+  "tagtype-order": {
+    "message": "Vente",
+    "description": "label for tagtype order"
+  },
+  "tagtype-category": {
+    "message": "Catégorie",
+    "description": "label for tagtype category"
+  },
+  "tagtype-cart": {
+    "message": "Panier",
+    "description": "label for tagtype cart"
+  },
+
+
+  "tab-overview-name": {
+    "message": "Overview",
+    "description": "Tab#1 displayed inside all requests"
+  },
+  "tab-overview-label-traffickingtype": {
+    "message": "trafficking type",
+    "description": "label for trafficking type in adcentric"
+  },
+  "tab-overview-label-tagtype": {
+    "message": "Tag category",
+    "description": "label for tag type"
+  },
+  "tab-overview-label-cookie": {
+    "message": "Cookie",
+    "description": "label for tag cookie"
+  },
+  "tab-overview-label-logtime": {
+    "message": "Captured",
+    "description": "label for logtime"
+  },
+  "tab-overview-label-hostresponse": {
+    "message": "Host Response",
+    "description": "label for hostresponse"
+  },
+  "tab-overview-label-attribtrafic": {
+    "message": "Attributed to",
+    "description": "label for hostresponse"
+  },
+  "tab-overview-label-trackingdomain": {
+    "message": "Tracking Domain",
+    "description": "label for tracking domain"
+  },
+  "tab-overview-label-tms": {
+    "message": "TMS",
+    "description": "label for tms"
+  },
+  "tab-overview-label-s2s": {
+    "message": "S2S",
+    "description": "label for s2s"
+  },
+
+  "tab-browsinghistory-name": {
+    "message": "Redirect History",
+    "description": "Tab#2 displayed inside ad-centric requests"
+  },
+  "tab-parameters-name": {
+    "message": "Parameters",
+    "description": "Tab#2 displayed inside site-centric requests"
+  },
+  "tab-parameters-label-general": {
+    "message": "Global parameters",
+    "description": "label for general parameters panel"
+  },
+  "tab-parameters-label-system": {
+    "message": "System parameters",
+    "description": "label for system parameters panel"
+  },
+  "tab-parameters-label-product": {
+    "message": "Product parameters",
+    "description": "label for product parameters panel"
+  },
+  "tab-parameters-label-contextflag": {
+    "message": "Context-Flag parameters",
+    "description": "label for context-flag parameters panel"
+  },
+  "tab-parameters-label-search": {
+    "message": "Search parameters",
+    "description": "label for search parameters panel"
+  },
+
+  "tab-tms-name": {
+    "message": "TMS",
+    "description": "Tab#3 displayed inside site-centric requests"
+  },
+  "tab-tms-label-native": {
+    "message": "Natives tags",
+    "description": "label for native tags panel"
+  },
+  "tab-tms-label-js": {
+    "message": "JS tags",
+    "description": "label for js tags panel"
+  },
+  "tab-tms-label-img": {
+    "message": "Image tags",
+    "description": "label for img tags panel"
+  },
+  "tab-tms-label-cookiematching": {
+    "message": "Cookie-Matching",
+    "description": "label for cookie-matching tags panel"
+  },
+  "tab-s2s-name": {
+    "message": "S2S",
+    "description": "Tab#4 displayed inside site-centric requests"
+  },
+  "tab-rawrequest-name": {
+    "message": "Raw request",
+    "description": "Tab#5 displayed inside site-centric requests"
+  },
+    "tab-rawrequest-label-hostresponse": {
+    "message": "Host Response",
+    "description": "Host response label in the tab rawrequest"
+  },
+
+
+  "table-header-type": {
+    "message": "type",
+    "description": "Table header #1"
+  },
+  "table-header-site": {
+    "message": "site",
+    "description": "Table header #2"
+  },
+  "table-header-main": {
+    "message": "page",
+    "description": "Table header #3"
+  },
+  "table-header-name": {
+    "message": "name",
+    "description": "Table header #4 used in ad-centric history only"
+  },
+  "table-header-val": {
+    "message": "value",
+    "description": "Table header #5 used in ad-centric history only"
+  },
+
+
+  "mode-notification": {
+    "message": "notify",
+    "description": "The type of mode used to display or not browser notifications when a tag is triggered"
+  },
+  "mode-silence": {
+    "message": "Silence",
+    "description": "The type of mode used to display or not browser notifications when a tag is triggered"
+  },
+
+
+  "tb-toolbox": {
+    "message": "Tools",
+    "description": "the name of the dropdown containing tools"
+  },
+  "tb-loaddatalayer": {
+    "message": "Load a new datalayer",
+    "description": "dropdown element used to load a datalayer"
+  },
+  "tb-removedatalayer": {
+    "message": "Stop Q.A.",
+    "description": "dropdown element used to remove a datalayer"
+  },
+  "tb-changedatalayer": {
+    "message": "Replace the datalayer",
+    "description": "dropdown element used to switch for a new datalayer"
+  },
+  "tb-exportall": {
+    "message": "Export all tags in csv",
+    "description": "dropdown element used to download tags in csv"
+  },
+  "tb-removeall": {
+    "message": "Delete all",
+    "description": "dropdown element used to remove all requests"
+  },
+  "tb-qaready": {
+    "message": "Q.A. (ready)",
+    "description":  "the name of the dropdown when a datalayer is loaded"
+  },
+
+  "qa-name": {
+    "message": "Q.A. Configuration",
+    "description":  "name used in the modal for QA setup"
+  },
+  "qa-content-part-alreadyloaded": {
+    "message": "Content of the tag actually loaded",
+    "description":  "header of the tag content part"
+  },
+  "qa-placeholder-textarea": {
+    "message":  "Copy here the datalayer to test.\nFormat:csv\ndelimitor:';'\nAutorized tag header:'générique','produit','catégorie','recherche','vente','devis'",
+    "description":  "placeholder for loading datalayer"
+  },
+
+  "msg-datalayerremoved": {
+    "message": "Datalayer successfuly deleted o(^_^o)",
+    "description": "message display when datalayer is removed"
+  },
+  "msg-datalayeradded": {
+    "message": "Datalayer successfuly loaded :)",
+    "description": "message display when datalayer is added"
+  },
+  "msg-download": {
+    "message": "Download starting...",
+    "description": "message display when download starts"
+  },
+  "msg-deleteall": {
+    "message": "Delete definitively the captured requests. Continue?",
+    "description": "message display when user click on delete all"
+  },
+  "msg-nothingtodelete": {
+    "message": "Nothing to remove :)",
+    "description": "message display when user click on delete all and there are no request captured"
+  },
+  "msg-invalddatalayer": {
+    "message": "The datalayer is not valid. Impossible to load it",
+    "description": "message display when user want to load a datalayer invalid"
+  },
+  "msg-partialyvaliddatalayer": {
+    "message": "Warning, only those tags were correctly loaded: $TAGTYPES$",
+    "description": "message display when user want to load a datalayer semi-valid",
+    "placeholders": {
+      "tagtypes" : {
+        "content" : "$1",
+        "example" : "generic,product"
+      }
+    }
+  },
+
+  "notification-sitecentrictagtriggered-title-ok": {
+    "message": "$TAGTYPE$ TAG TRIGGERED",
+    "description": "title of notification when the tag is correctly triggered",
+    "placeholders": {
+      "tagtype" : {
+        "content" : "$1",
+        "example" : "generic"
+      }
+    }
+  },
+  "notification-sitecentrictagtriggered-message-ok": {
+    "message": "$TAGTYPE$ tag triggered as $FIRSTPARTY$ on $WSPAGE$ only $TIMEELAPSED$ s after you land on this page.\n\nData collected by: $WSNAME$",
+    "description": "content of notification when the tag is correctly triggered",
+    "placeholders": {
+      "tagtype" : {
+        "content" : "$1",
+        "example" : "generic"
+      },
+      "firstparty" : {
+        "content" : "$2",
+        "example" : "1st-party"
+      },
+      "wspage" : {
+        "content" : "$3",
+        "example" : "www.3suisses.fr"
+      },
+      "timeelapsed" : {
+        "content" : "$4",
+        "example" : "2.27"
+      },
+      "wsname" : {
+        "content" : "$5",
+        "example" : "3suisses-fr"
+      }      
+    }
+  },
+
+  "notification-sitecentrictagtriggered-title-false": {
+    "message": "/!\\ PROBLEM WITH THE $TAGTYPE$ TAG TRIGGERED",
+    "description": "title of notification when the tag is not correctly triggered",
+    "placeholders": {
+      "tagtype" : {
+        "content" : "$1",
+        "example" : "generic"
+      }
+    }
+  },
+  "notification-sitecentrictagtriggered-message-false": {
+    "message": "Ouch, the $TAGTYPE$ tag triggered as $FIRSTPARTY$ on $WSPAGE$ has not been collected by the system",
+    "description": "content of notification when the tag is not correctly triggered",
+    "placeholders": {
+      "tagtype" : {
+        "content" : "$1",
+        "example" : "generic"
+      },
+      "firstparty" : {
+        "content" : "$2",
+        "example" : "3rd-party"
+      },
+      "wspage" : {
+        "content" : "$3",
+        "example" : "www.3suisses.fr"
+      }
+    }
+  },
+  "time-ago": {
+    "message":"$HOURS_AGO$h and $MINUTES_AGO$ min ago ($HOURS$h:$MIN$m:$SECS$s)",
+    "description":"This text is used in a tooltip displayed when hovering the request capture time",
+    "placeholders": {
+      "hours_ago" : {
+        "content" : "$1",
+        "example" : "2"
+      },
+      "minutes_ago" : {
+        "content" : "$2",
+        "example" : "3"
+      },
+      "hours" : {
+        "content" : "$3",
+        "example" : "3"
+      },
+      "min" : {
+        "content" : "$4",
+        "example" : "15"
+      },
+      "secs" : {
+        "content" : "$5",
+        "example" : "59"
+      }
+    }
+  },
+    "time-ago-less-than-one-hour": {
+      "message":"$MINUTES_AGO$ min and $SECS_AGO$s ago ($HOURS$h:$MIN$m:$SECSs)",
+      "description":"This text is used in a tooltip displayed when hovering the request capture time and capture time less than one hour",
+      "placeholders": {
+        "minutes_ago" : {
+          "content" : "$1",
+          "example" : "3"
+        },
+        "secs_ago" : {
+          "content" : "$2",
+          "example" : "3"
+        },
+        "hours" : {
+          "content" : "$3",
+          "example" : "3"
+        },
+        "min" : {
+          "content" : "$4",
+          "example" : "15"
+        },
+        "secs" : {
+          "content" : "$5",
+          "example" : "59"
+        }
+    }
+  }
+}

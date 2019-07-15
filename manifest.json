@@ -1,0 +1,32 @@
+{
+	"name": "__MSG_extensionName__",
+	"description": "__MSG_extensionDescription__",
+	"default_locale": "en",
+	"version": "0.996",
+	"manifest_version": 2,
+	"content_security_policy": "script-src 'self' ; object-src 'self';",
+	"permissions": [
+		"<all_urls>",
+		"webRequest",
+		"webRequestBlocking",
+		"storage",
+		"tabs",
+		"notifications",
+		"downloads"
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{f6acb2ab-0e8b-48b2-bcf1-ef63e0f11106}"
+		}
+	},
+	"browser_action": {
+		"default_icon": "icn/icn.png",
+		"default_popup": "popup.html",
+		"default_title": "Afficher l'assistant EA"
+	},
+	"background": {
+		"scripts": [
+			"background.js"
+		]
+	}
+}

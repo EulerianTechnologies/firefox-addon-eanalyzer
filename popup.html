@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/lib/element-ui/2.10.1/theme-chalk_index.css">
+	
+	<!-- import JavaScript -->
+	<script src="/lib/vue-js/2.6.10/vue.js"></script>
+	<script src="/lib/element-ui/2.10.1/index.js"></script>
+	<script src="/lib/element-ui/2.10.1/fr.js"></script>
+	<!-- highlight js -->
+	<link rel="stylesheet" href="/lib/highlight-js/9.15.8/default.css">
+	<script src="/lib/highlight-js/9.15.8/highlight.js"></script>
+	<!-- OFF/ <script src="/lib/highlight-js/9.15.8/javascript.js"></script> -->
+</head>
+
+<body>
+	<div id="hugo" class="ea-main">
+		<span v-if="authentified">
+				<ea-analyzer :items="items" :datalayer="datalayer" :datalayer_csv="textarea_plan_taguage" @remove="onRemove" @resetcounter="counterReset"></ea-analyzer>
+				
+			</span>
+		<span v-else>
+			<login :user="user"></login>
+			
+		</span>
+		
+	</div>
+	<script src="main.js"></script>
+</body>
+
+</html>
