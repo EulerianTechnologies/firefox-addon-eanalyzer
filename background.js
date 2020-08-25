@@ -282,9 +282,10 @@ function requestGrinder(call) {
 					.then(function (e) {
 						request.updateTime(e[0]);
 						console.log("url", request.page_url);
-
+						console.log("url", request);
 						//Stockage de l'objet request dans le local storage du browser
-						if (request.params.filter(_ => _.flag === 'system').length > 3 === true) {
+						if (request.params.filter(_ => _.flag === 'system').length > 3 === true ||/\/collector\//.test(request.rawcol)) {
+							console.log("url", request.page_url);
 							//hack tracking par parametre dans le parallel tracking
 							if (request.page_url.includes('esl-k=')) {
 
@@ -324,8 +325,8 @@ function requestGrinder(call) {
 
 
 							}
-
-							memorize(request)
+							console.log(request);
+							memorize(request);
 						}
 					}).catch(err => console.error("Aïe", err));
 			}
