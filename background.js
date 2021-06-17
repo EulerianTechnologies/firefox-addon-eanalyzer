@@ -287,10 +287,12 @@ function requestGrinder(call) {
 						if (request.params.filter(_ => _.flag === 'system').length > 3 === true ||/\/collector\//.test(request.rawcol)) {
 							console.log("url", request.page_url);
 							//hack tracking par parametre dans le parallel tracking
-							if (request.page_url.includes('esl-k=')) {
+							if (/e..-publisher/.test(request.page_url)){
+
+
 
 								var ad_request = {
-									canal: "esl",
+									canal: request.page_url.match(/\?(.*)?(e..)-publisher/i)[2],
 									type: "ad",
 									cmp_name: "test",
 									website: request.website,
@@ -308,6 +310,23 @@ function requestGrinder(call) {
 									}],
 									id: (request.id - 1)
 								};
+
+								ad_request['pblish_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-publisher" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|')[0];
+
+								ad_request['cmp_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-name" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|').filter(name => /(g\d\d\d\d)/.test(name))[0];
+
+								browser.storage.local.set({ [ad_request.id]: ad_request });
+								browser.storage.local.get().then(_ => {
+									clicks = Object.keys(_).length;
+									browser.browserAction.setBadgeText({ text: clicks.toString() });
+									browser.browserAction.setBadgeBackgroundColor({ color: "#6098f2" });
+								});
+
+
+								browser.runtime.sendMessage({ event: "new request", id: ad_request.id.toString() });
+
+
+							}
 
 								ad_request['pblish_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-publisher" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|')[0];
 
