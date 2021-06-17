@@ -668,13 +668,14 @@ Vue.filter('formatDateago', function (value) {
 });
 Vue.filter('getReadableChannel', function (value) {
 	var channel_mapping = {
-		"esl": "lien sponsorisé",
+		"esl": "SEM",
 		"eml": "mailing",
 		"ead": "display",
 		"eaf": "affiliation",
 		"esc": "social",
-		"etf": "comparateur de prix",
-		"ept": "partenariat"
+		"etf": "price comparator",
+		"ept": "partner",
+		"egn": "generical"
 	}
 	return channel_mapping[value];
 });

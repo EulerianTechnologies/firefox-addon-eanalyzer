@@ -65,13 +65,24 @@ RequestLog.prototype.updateTime = function (ot) {
 	this.time.timeElapsed = this.time.ts - this.time.timeOrigin;
 };
 RequestLog.prototype.detectTagType = function (params_names) {
-	let param_detectors = { 'prdr0': 'produit', 'prdr1': 'catégorie', 'eise': 'search', 'scart': 'panier', 'ref': 'vente', 'estimate': 'devis' }
-	Object.entries(param_detectors).forEach(([key, val]) => { this.call_type = params_names.includes(key) && val || this.call_type; });
+	let param_detectors = {
+		'prdr0': 'produit',
+		'prdr1': 'catégorie',
+		'eise': 'search',
+		'scart': 'panier',
+		'ref': 'vente',
+		'estimate': 'devis'
+	}
+	Object.entries(param_detectors).forEach(([key, val]) => {
+		this.call_type = params_names.includes(key) && val || this.call_type;
+	});
 	this.call_type = !this.call_type && "Générique" || this.call_type;
 };
 
 RequestLog.prototype.sorting = function (key) {
-	this.params.sort((a, b) => { return a[key] < b[key] && -1 || a[key] > b[key] && 1 || 0 });
+	this.params.sort((a, b) => {
+		return a[key] < b[key] && -1 || a[key] > b[key] && 1 || 0
+	});
 };
 
 /* Storing a new request into Local Storage and then notify main.js about via sendmessage */
@@ -85,8 +96,12 @@ function memorize(request) {
 
 			browser.storage.local.get().then(_ => {
 				clicks = Object.keys(_).filter(id => !isNaN(id)).length;
-				browser.browserAction.setBadgeText({ text: clicks.toString() });
-				browser.browserAction.setBadgeBackgroundColor({ color: "#6098f2" });
+				browser.browserAction.setBadgeText({
+					text: clicks.toString()
+				});
+				browser.browserAction.setBadgeBackgroundColor({
+					color: "#6098f2"
+				});
 			});
 
 			browser.runtime.sendMessage({
@@ -112,14 +127,20 @@ function shakeUp(prefix_searched, queryparameter, outcome) {
 	let flag = (prefix_searched === "prdp" ? 'product' : (prefix_searched === "ecf" ? 'context-flag' : (prefix_searched === "eis" ? 'search' : 'nc')));
 	let key = prefix_searched + queryparameter[0].match(/\d/g).join("");
 	let type_qs = queryparameter[0].includes('k') && "name" || "value";
-	outcome[key] = outcome[key] || { "name": "", "value": "", flag };
+	outcome[key] = outcome[key] || {
+		"name": "",
+		"value": "",
+		flag
+	};
 	outcome[key][type_qs] = (type_qs === "name" ? `${key}-` : "") + decodeURIComponent(queryparameter[1]);
 
 	return outcome[key]["name"] && outcome[key]["value"] && key || ''
 
 }
 
-function empty(str) { return str === '' }
+function empty(str) {
+	return str === ''
+}
 /* Filtrer sur les requêtes enregistrées || injection du content-script || parsing des url queries... */
 function requestGrinder(call) {
 	if (/\/(dynclick|dynview)\//.test(call.url)) {
@@ -129,12 +150,19 @@ function requestGrinder(call) {
 			website: call.url.match(/\/(dynclick|dynview)\/(.+?)\//i)[2],
 			corv: call['url'].includes("/dynclick/") && "click" || "view",
 			nb_redir: 0,
-			time: { ts: call.timeStamp },
+			time: {
+				ts: call.timeStamp
+			},
 			req: [{
 				url: call.url,
 				urldomains: call.url.split("?").filter(_ => _.includes("http")),
 				timestamp: call.timeStamp,
-				params: call.url.split('?')[1].split('&').map(function (elem) { return { name: elem.split('=')[0], value: decodeURIComponent(elem.split('=')[1]) } })
+				params: call.url.split('?')[1].split('&').map(function (elem) {
+					return {
+						name: elem.split('=')[0],
+						value: decodeURIComponent(elem.split('=')[1])
+					}
+				})
 
 			}],
 			id: call.requestId
@@ -160,17 +188,26 @@ function requestGrinder(call) {
 			ad_request['req'] = ad_request['req'].concat(storedreq.req);
 			ad_request['nb_redir'] = ad_request['req'].length;
 			console.log("ad_request", ad_request);
-			browser.storage.local.set({ [ad_request.id]: ad_request });
+			browser.storage.local.set({
+				[ad_request.id]: ad_request
+			});
 			browser.storage.local.get().then(_ => {
 				clicks = Object.keys(_).length;
-				browser.browserAction.setBadgeText({ text: clicks.toString() });
-				browser.browserAction.setBadgeBackgroundColor({ color: "#6098f2" });
+				browser.browserAction.setBadgeText({
+					text: clicks.toString()
+				});
+				browser.browserAction.setBadgeBackgroundColor({
+					color: "#6098f2"
+				});
 			});
 
 
 
 
-			browser.runtime.sendMessage({ event: "new request", id: ad_request.id.toString() });
+			browser.runtime.sendMessage({
+				event: "new request",
+				id: ad_request.id.toString()
+			});
 		});
 
 
@@ -193,8 +230,13 @@ function requestGrinder(call) {
 		var request = new RequestLog(call);
 		request.type = "site";
 
-		var capturing = browser.tabs.captureTab(request.tab_id, { format: "jpeg", quality: 10 });
-		capturing.then(img => { request.snap = img });
+		var capturing = browser.tabs.captureTab(request.tab_id, {
+			format: "jpeg",
+			quality: 10
+		});
+		capturing.then(img => {
+			request.snap = img
+		});
 
 
 		if (system_compatibility.getrequest && system_compatibility.getresponse) {
@@ -204,15 +246,25 @@ function requestGrinder(call) {
 
 			/*RESPONSE GRINDER*/
 			filter.ondata = event => {
-				const response_str = decoder.decode(event.data, { stream: true });
+				const response_str = decoder.decode(event.data, {
+					stream: true
+				});
 				request['response_status'] = (response_str.length > 1 ? true : false);
 				request['response'] = response_str;
 
 				if (request.response_status) {
 					request['etuix'] = response_str.match(/_oEa\.uidset\(\"(.+?)\"\)/i);
-					if (request['etuix']) { request['etuix'] = request['etuix'][1] } else { request['etuix'] = "" }
+					if (request['etuix']) {
+						request['etuix'] = request['etuix'][1]
+					} else {
+						request['etuix'] = ""
+					}
 					request['website'] = response_str.match(/_oEa\.website\(\"(.+?)\"\)/i);
-					if (request['website']) { request['website'] = request['website'][1] } else { request['etuix'] = "" }
+					if (request['website']) {
+						request['website'] = request['website'][1]
+					} else {
+						request['etuix'] = ""
+					}
 
 					let tags = response_str.match(/\/\* \{ccmt\:((.|\n)+?)\}catch\(e\)\{_oEa\.log\(\'ETM\'\,e\)\;\}/gi);
 					let dcs = response_str.match(/\{dc\:((.|\n)+?)dcrundone\[\"[0-9]+\"\]\=[01]\;/gi);
@@ -231,7 +283,9 @@ function requestGrinder(call) {
 							for (let i = 0; i < _dcMetaArray.length; i++) {
 								if (_dcMetaArray[i].includes(':')) {
 									dcOutcome[_dcMetaArray[i].split(':')[0]] = _dcMetaArray[i].split(':')[1]
-								} else { dcOutcome[_dcMetaArray[i]] = true; }
+								} else {
+									dcOutcome[_dcMetaArray[i]] = true;
+								}
 							}
 							console.log(_dc);
 							console.log(dcOutcome);
@@ -257,7 +311,9 @@ function requestGrinder(call) {
 							if (typeof tagOutcome['url'] === 'object' && tagOutcome['url']['0'].split('.').length > 1) {
 								tagOutcome['partner'] = tagOutcome['url'][0].match(/(?:[\w-]+\.)+[\w-]+/).toString();
 								tagOutcome['url'] = tagOutcome.url[0];
-								if (/(rpset|google_cm|mwsu)/.test(tagOutcome['url'])) { tagOutcome['type'] = "cm" }
+								if (/(rpset|google_cm|mwsu)/.test(tagOutcome['url'])) {
+									tagOutcome['type'] = "cm"
+								}
 							}
 							if (typeof tagOutcome['done'] === 'object') {
 								tagOutcome['done'] = (tagOutcome['done'][1] === "1" ? true : false);
@@ -268,7 +324,9 @@ function requestGrinder(call) {
 							for (let i = 0; i < _TagMetaArray.length; i++) {
 								if (_TagMetaArray[i].includes(':')) {
 									tagOutcome[_TagMetaArray[i].split(':')[0]] = _TagMetaArray[i].split(':')[1]
-								} else { tagOutcome[_TagMetaArray[i]] = true; }
+								} else {
+									tagOutcome[_TagMetaArray[i]] = true;
+								}
 							}
 							return tagOutcome;
 						});
@@ -278,18 +336,18 @@ function requestGrinder(call) {
 				filter.disconnect();
 
 				browser.tabs
-					.executeScript(request.tab_id, { code: `var time = performance.timing.fetchStart;time;` })
+					.executeScript(request.tab_id, {
+						code: `var time = performance.timing.fetchStart;time;`
+					})
 					.then(function (e) {
 						request.updateTime(e[0]);
 						console.log("url", request.page_url);
 						console.log("url", request);
 						//Stockage de l'objet request dans le local storage du browser
-						if (request.params.filter(_ => _.flag === 'system').length > 3 === true ||/\/collector\//.test(request.rawcol)) {
+						if (request.params.filter(_ => _.flag === 'system').length > 3 === true || /\/collector\//.test(request.rawcol)) {
 							console.log("url", request.page_url);
 							//hack tracking par parametre dans le parallel tracking
-							if (/e..-publisher/.test(request.page_url)){
-
-
+							if (/e..-publisher/.test(request.page_url)) {
 
 								var ad_request = {
 									canal: request.page_url.match(/\?(.*)?(e..)-publisher/i)[2],
@@ -300,12 +358,19 @@ function requestGrinder(call) {
 									corv: "click",
 									nb_redir: 0,
 									pblish_name: "",
-									time: { ts: request.time.ts - 100 },
+									time: {
+										ts: request.time.ts - 100
+									},
 									req: [{
 										url: request.page_url,
 										urldomains: request.domain,
 										timestamp: request.time.ts - 100,
-										params: request['page_url'].split('?')[1].split('&').map(function (elem) { return { name: elem.split('=')[0], value: decodeURIComponent(elem.split('=')[1]) } })
+										params: request['page_url'].split('?')[1].split('&').map(function (elem) {
+											return {
+												name: elem.split('=')[0],
+												value: decodeURIComponent(elem.split('=')[1])
+											}
+										})
 
 									}],
 									id: (request.id - 1)
@@ -313,38 +378,35 @@ function requestGrinder(call) {
 
 								ad_request['pblish_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-publisher" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|')[0];
 
-								ad_request['cmp_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-name" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|').filter(name => /(g\d\d\d\d)/.test(name))[0];
+								if (ad_request['pblish_name'] == "esl") {
+									ad_request['cmp_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-k")[0]['value'].split('|').filter(name => /(g\d\d\d\d)/.test(name))[0];
+								} else {
+									ad_request['cmp_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-name")[0]['value'];
+								}
 
-								browser.storage.local.set({ [ad_request.id]: ad_request });
+
+								browser.storage.local.set({
+									[ad_request.id]: ad_request
+								});
 								browser.storage.local.get().then(_ => {
 									clicks = Object.keys(_).length;
-									browser.browserAction.setBadgeText({ text: clicks.toString() });
-									browser.browserAction.setBadgeBackgroundColor({ color: "#6098f2" });
+									browser.browserAction.setBadgeText({
+										text: clicks.toString()
+									});
+									browser.browserAction.setBadgeBackgroundColor({
+										color: "#6098f2"
+									});
 								});
 
 
-								browser.runtime.sendMessage({ event: "new request", id: ad_request.id.toString() });
-
-
-							}
-
-								ad_request['pblish_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-publisher" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|')[0];
-
-								ad_request['cmp_name'] = ad_request['req'][0].params.filter(param => param.name === ad_request['canal'] + "-name" || param.name === ad_request['canal'] + "-k")[0]['value'].split('|').filter(name => /(g\d\d\d\d)/.test(name))[0];
-
-								browser.storage.local.set({ [ad_request.id]: ad_request });
-								browser.storage.local.get().then(_ => {
-									clicks = Object.keys(_).length;
-									browser.browserAction.setBadgeText({ text: clicks.toString() });
-									browser.browserAction.setBadgeBackgroundColor({ color: "#6098f2" });
+								browser.runtime.sendMessage({
+									event: "new request",
+									id: ad_request.id.toString()
 								});
 
 
-								browser.runtime.sendMessage({ event: "new request", id: ad_request.id.toString() });
-
-
 							}
-							console.log(request);
+							console.log("paramtrack", ad_request);
 							memorize(request);
 						}
 					}).catch(err => console.error("Aïe", err));
@@ -352,12 +414,16 @@ function requestGrinder(call) {
 		} else {
 			request['response_status'] = "nc";
 			browser.tabs
-				.executeScript(request.tab_id, { code: `var time =  performance.timing.fetchStart;time;` })
+				.executeScript(request.tab_id, {
+					code: `var time =  performance.timing.fetchStart;time;`
+				})
 				.then(function (e) {
 					request.updateTime(e[0]);
 
 					//Stockage de l'objet request dans le local storage du browser
-					if (request.params.filter(_ => _.flag === 'system').length > 3 === true) { memorize(request) };
+					if (request.params.filter(_ => _.flag === 'system').length > 3 === true) {
+						memorize(request)
+					};
 				}).catch(err => console.error("Aïe", err));
 		}
 
@@ -390,7 +456,12 @@ function requestGrinder(call) {
 				else if (name.includes("prda")) var nickname = "prdamount";
 				else if (name.includes("prdg")) var nickname = "prdgroup";
 
-				request.addParam({ name, nickname, value, flag });
+				request.addParam({
+					name,
+					nickname,
+					value,
+					flag
+				});
 			}
 		});
 
@@ -400,7 +471,9 @@ function requestGrinder(call) {
 
 		var productsortOrder = [];
 
-		Array.from({ length: 9 }, (v, k) => ["prdr" + k, "prdn" + k, "prdg" + k, "prda" + k, "prdp" + k]).forEach(i => i.forEach(v => productsortOrder.push(v)));
+		Array.from({
+			length: 9
+		}, (v, k) => ["prdr" + k, "prdn" + k, "prdg" + k, "prda" + k, "prdp" + k]).forEach(i => i.forEach(v => productsortOrder.push(v)));
 
 
 
@@ -408,4 +481,6 @@ function requestGrinder(call) {
 	}
 }
 
-chrome.webRequest.onBeforeRequest.addListener(requestGrinder, { urls: ["<all_urls>"] }, ["blocking"]);
+chrome.webRequest.onBeforeRequest.addListener(requestGrinder, {
+	urls: ["<all_urls>"]
+}, ["blocking"]);
