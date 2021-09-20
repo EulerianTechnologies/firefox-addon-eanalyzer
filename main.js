@@ -31,7 +31,6 @@ browser.runtime.onMessage.addListener(
 	function (msg) {
 		if (msg.event === "new request") {
 			browser.storage.local.get(msg.id).then(function (res) {
-				console.log("yoyo", msg.id);
 				data.items.unshift(res[msg.id]);
 			});
 		}
@@ -630,9 +629,7 @@ new Vue({
 	},
 	created() {
 		browser.storage.local.get().then(items => {
-			console.log("test", Object.keys(items));
-			console.log("test_result", Object.keys(items).filter(id => !isNaN(id)).sort(function (a, b) { var x = items[a].time.ts; var y = items[b].time.ts; return ((x > y) ? -1 : ((x < y) ? 1 : 0)); }));
-
+			
 			this.items = Object.keys(items).filter(id => !isNaN(id)).sort(function (a, b) { var x = items[a].time.ts; var y = items[b].time.ts; return ((x > y) ? -1 : ((x < y) ? 1 : 0)); }).map(id => items[id]);
 
 			browser.browserAction.setBadgeText({ text: (this.bg.clicks ? this.bg.clicks : "").toString() });
